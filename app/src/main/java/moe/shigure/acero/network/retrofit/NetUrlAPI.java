@@ -12,7 +12,7 @@ public interface NetUrlAPI {
     @GET("http://test.cnsltx.com/mmm/buy99Gold?playerid=20015")
     Observable<ResponseBody> getCall(@Query("name") String name, @Query("name") String psd);
 
-    @GET("httpServer/json/ms_chatlist_banner.json")
+    @GET("ero/nh/id/16")
     Observable<JsonElement> getBanner();
 
 }

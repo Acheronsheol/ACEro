@@ -31,7 +31,6 @@ public abstract class BasePresenter<V extends IBaseView> implements IBasePresent
                 return method.invoke(mReferenceView.get(), objects);
             }
         });
-        EventBus.getDefault().register(this);
     }
 
     public V getView() {
@@ -40,7 +39,6 @@ public abstract class BasePresenter<V extends IBaseView> implements IBasePresent
 
     @Override
     public void detach() {
-        EventBus.getDefault().unregister(this);
         mReferenceView.clear();
         mReferenceView = null;
     }

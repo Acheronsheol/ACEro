@@ -25,7 +25,7 @@ public class ApiRetrofit extends BaseApiRetrofit {
 
         //在构造方法中完成对Retrofit接口的初始化
         netUrlAPI = new Retrofit.Builder()
-                .baseUrl("http://doudoujiaoyou.oss-cn-beijing.aliyuncs.com/")
+                .baseUrl("https://ero.raxianch.moe/")
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
