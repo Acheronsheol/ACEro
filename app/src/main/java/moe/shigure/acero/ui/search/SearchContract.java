@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import moe.shigure.acero.base.presenter.IBasePresenter;
 import moe.shigure.acero.base.view.IBaseView;
-import moe.shigure.acero.bean.BookInfo;
+import moe.shigure.acero.bean.BookSimpleInfo;
 
 /**
  * Created by Shigure on 2020/11/4
@@ -14,7 +14,7 @@ public class SearchContract {
 
     interface ISearchView extends IBaseView {
 
-        void refreshSearchResult(ArrayList<BookInfo> bookInfos);
+        void refreshSearchResult(ArrayList<BookSimpleInfo> bookSimpleInfos);
 
     }
 

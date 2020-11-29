@@ -17,7 +17,7 @@ import me.drakeet.multitype.MultiTypeAdapter;
 import moe.shigure.acero.R;
 import moe.shigure.acero.base.inject.InjectPresenter;
 import moe.shigure.acero.base.view.BaseActivity;
-import moe.shigure.acero.bean.BookInfo;
+import moe.shigure.acero.bean.BookSimpleInfo;
 import moe.shigure.acero.utils.ToastUtils;
 
 /**
@@ -82,15 +82,15 @@ public class SearchActivity extends BaseActivity implements SearchContract.ISear
         contentAdapter = new MultiTypeAdapter(contentItems);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv_content.setLayoutManager(linearLayoutManager);
-        contentAdapter.register(BookInfo.class, new SearchResultBinder(this));
+        contentAdapter.register(BookSimpleInfo.class, new SearchResultBinder(this));
         rv_content.setAdapter(contentAdapter);
 
     }
 
     @Override
-    public void refreshSearchResult(ArrayList<BookInfo> bookInfos){
+    public void refreshSearchResult(ArrayList<BookSimpleInfo> bookSimpleInfos){
         contentItems.clear();
-        contentItems.addAll(bookInfos);
+        contentItems.addAll(bookSimpleInfos);
         contentAdapter.notifyDataSetChanged();
     }
 

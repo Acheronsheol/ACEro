@@ -13,31 +13,31 @@ import moe.shigure.acero.network.json.JsonPack;
    "url": "/ero/nh/id/337751/"
    */
 
-public class BookInfo {
+public class BookSimpleInfo {
 
     private long id;
-    private long hash;
+    private String hash;
     private String bookName;
     private String cover;
     private String url;
 
-    public BookInfo setId(long id) {
+    public BookSimpleInfo setId(long id) {
         this.id = id;
         return this;
     }
-    public BookInfo setHash(long hash) {
+    public BookSimpleInfo setHash(String hash) {
         this.hash = hash;
         return this;
     }
-    public BookInfo setBookName(String bookName) {
+    public BookSimpleInfo setBookName(String bookName) {
         this.bookName = bookName;
         return this;
     }
-    public BookInfo setCover(String cover) {
+    public BookSimpleInfo setCover(String cover) {
         this.cover = cover;
         return this;
     }
-    public BookInfo setUrl(String url) {
+    public BookSimpleInfo setUrl(String url) {
         this.url = url;
         return this;
     }
@@ -45,7 +45,7 @@ public class BookInfo {
     public long getId() {
         return id;
     }
-    public long getHash() {
+    public String getHash() {
         return hash;
     }
     public String getBookName() {
@@ -58,9 +58,9 @@ public class BookInfo {
         return url;
     }
 
-    public BookInfo fillFromJson(JsonPack jsonPack){
+    public BookSimpleInfo fillFromJson(JsonPack jsonPack){
         id = jsonPack.getLong("id");
-        hash = jsonPack.getLong("hash");
+        hash = jsonPack.getString("hash");
         bookName = jsonPack.getString("bname");
         cover = jsonPack.getString("cover");
         url = jsonPack.getString("url");

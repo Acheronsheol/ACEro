@@ -1,6 +1,7 @@
 package moe.shigure.acero.ui.search;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,18 +14,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import me.drakeet.multitype.ItemViewBinder;
 import moe.shigure.acero.R;
-import moe.shigure.acero.bean.BookInfo;
+import moe.shigure.acero.bean.BookSimpleInfo;
+import moe.shigure.acero.ui.detail.BookDetailActivity;
 
 /**
  * Created by wang on 2020/9/15
  **/
 
-public class SearchResultBinder extends ItemViewBinder<BookInfo, SearchResultBinder.ViewHolder> {
+public class SearchResultBinder extends ItemViewBinder<BookSimpleInfo, SearchResultBinder.ViewHolder> {
 
-    Activity activity;
+    Activity mActivity;
 
     public SearchResultBinder(Activity activity){
-        this.activity = activity;
+        this.mActivity = activity;
     }
 
     @NonNull
@@ -35,13 +37,24 @@ public class SearchResultBinder extends ItemViewBinder<BookInfo, SearchResultBin
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull BookInfo bookInfo) {
-        Glide.with(activity)
-                .load("https://ero.raxianch.moe"+ bookInfo.getCover())
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull BookSimpleInfo bookSimpleInfo) {
+        Glide.with(mActivity)
+                .load("https://ero.raxianch.moe"+ bookSimpleInfo.getCover())
                 .placeholder(R.drawable.placeholder_pic_light)
                 .fitCenter()
                 .into(holder.iv_book_thumb);
-        holder.tv_book_name.setText(bookInfo.getBookName());
+        holder.tv_book_name.setText(bookSimpleInfo.getBookName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mActivity, BookDetailActivity.class);
+                intent.putExtra("url",bookSimpleInfo.getUrl());
+                intent.putExtra("thumb",bookSimpleInfo.getCover());
+                mActivity.startActivity(intent);
+            }
+        });
+
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

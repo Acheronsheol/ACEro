@@ -1,9 +1,8 @@
-package moe.shigure.acero.ui;
+package moe.shigure.acero.ui.read;
 
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import me.drakeet.multitype.Items;
@@ -16,10 +15,10 @@ import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
 
-public class MainActivity extends BaseActivity implements MainContract.IMainView {
+public class BookReadActivity extends BaseActivity implements BookReadContract.IMainView {
 
     @InjectPresenter
-    private MainPresenter mainPresenter;
+    private BookReadPresenter mPresenter;
 
     private Items contentItems;
     private MultiTypeAdapter contentAdapter;
@@ -41,13 +40,13 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     @Override
     protected void initData() {
         ImmersionBar.with(this).statusBarDarkFont(true).init();
-        mainPresenter.getData();
+        mPresenter.getBookContent(getIntent().getStringExtra("url"));
 
         contentItems = new Items();
         contentAdapter = new MultiTypeAdapter(contentItems);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv_content.setLayoutManager(linearLayoutManager);//这里用线性显示 类似于listview
-        contentAdapter.register(String.class, new MainContentBinder(this));
+        contentAdapter.register(String.class, new BookReadBinder(this));
         rv_content.setAdapter(contentAdapter);
 
         tv_page_number.setText(1+"/"+contentItems.size());

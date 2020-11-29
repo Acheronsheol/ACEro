@@ -1,4 +1,4 @@
-package moe.shigure.acero.ui;
+package moe.shigure.acero.ui.read;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,7 @@ import moe.shigure.acero.base.view.IBaseView;
  * Created by Shigure on 2020/11/4
  **/
 
-public class MainContract{
+public class BookReadContract {
 
     interface IMainView extends IBaseView {
 
@@ -19,7 +19,7 @@ public class MainContract{
 
     interface IMainPresenter extends IBasePresenter {
 
-        void getData();
+        void getBookContent(String url);
 
     }
 

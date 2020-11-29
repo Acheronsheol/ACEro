@@ -1,4 +1,4 @@
-package moe.shigure.acero.ui;
+package moe.shigure.acero.ui.read;
 
 import android.util.Log;
 
@@ -21,10 +21,10 @@ import moe.shigure.acero.network.retrofit.ApiRetrofit;
  * Created by Shigure on 2020/11/4
  **/
 
-public class MainPresenter extends BasePresenter<MainContract.IMainView> implements MainContract.IMainPresenter {
+public class BookReadPresenter extends BasePresenter<BookReadContract.IMainView> implements BookReadContract.IMainPresenter {
 
-    public void getData(){
-        ApiRetrofit.getInstance().getBanner()
+    public void getBookContent(String url){
+        ApiRetrofit.getInstance().getUrlInfo(url)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JsonElement>() {

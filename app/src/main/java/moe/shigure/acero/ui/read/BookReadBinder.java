@@ -1,4 +1,4 @@
-package moe.shigure.acero.ui;
+package moe.shigure.acero.ui.read;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -17,11 +17,11 @@ import moe.shigure.acero.R;
  * Created by wang on 2020/9/15
  **/
 
-public class MainContentBinder extends ItemViewBinder<String, MainContentBinder.ViewHolder> {
+public class BookReadBinder extends ItemViewBinder<String, BookReadBinder.ViewHolder> {
 
     Activity activity;
 
-    public MainContentBinder(Activity activity){
+    public BookReadBinder(Activity activity){
         this.activity = activity;
     }
 

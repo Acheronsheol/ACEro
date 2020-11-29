@@ -74,9 +74,13 @@
             </intent-filter>
         </activity>
 
-<!--        <activity-->
-<!--            android:name=".ui.search.SearchActivity"-->
-<!--            android:screenOrientation="portrait"/>-->
+        <activity
+            android:name=".ui.read.BookReadActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.detail.BookDetailActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 
