@@ -1,5 +1,7 @@
 package moe.shigure.acero.network.retrofit;
 
+import org.jetbrains.annotations.NotNull;
+
 import moe.shigure.acero.app.ShigureApp;
 import moe.shigure.acero.network.retrofit.persistentcookiejar.ClearableCookieJar;
 import moe.shigure.acero.network.retrofit.persistentcookiejar.PersistentCookieJar;
@@ -33,11 +35,6 @@ public class BaseApiRetrofit {
     }
 
     public BaseApiRetrofit() {
-        /*================== common ==================*/
-
-        // Log信息拦截器
-//        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-//        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.NONE);//这里可以选择拦截级别
 
         //cache
         File httpCacheDir = new File(ShigureApp.getContext().getCacheDir(), "response");
@@ -49,8 +46,8 @@ public class BaseApiRetrofit {
 
         //OkHttpClient
         mClient = new OkHttpClient.Builder()
-                .addInterceptor(REWRITE_HEADER_CONTROL_INTERCEPTOR)
-                .addInterceptor(REWRITE_CACHE_CONTROL_INTERCEPTOR)
+                .addInterceptor(rewriteHeaderControlInterceptor)
+                .addInterceptor(rewriteCacheControlInterceptor)
                 .addInterceptor(new LoggingInterceptor())
 //                .addInterceptor(loggingInterceptor)//设置 Debug Log 模式
                 .cache(cache)
@@ -59,53 +56,70 @@ public class BaseApiRetrofit {
     }
 
     //header配置
-    Interceptor REWRITE_HEADER_CONTROL_INTERCEPTOR = chain -> {
-        Request request = chain.request()
-                .newBuilder()
-                .addHeader("Content-Type", "application/json")
+
+    //重写头部控制拦截器
+    Interceptor rewriteHeaderControlInterceptor = new Interceptor() {
+        @NotNull
+        @Override
+        public Response intercept(@NotNull Chain chain) throws IOException {
+            Request request = chain.request()
+                    .newBuilder()
+                    .addHeader("Content-Type", "application/json")
 //                .addHeader("Content-Type", "application/json; charset=utf-8")
 //                .addHeader("Accept-Encoding", "gzip, deflate")
 //                .addHeader("Connection", "keep-alive")
 //                .addHeader("Accept", "*/*")
 //                .addHeader("Cookie", "add cookies here")
-                .build();
-        return chain.proceed(request);
-    };
-
-    //cache配置
-    Interceptor REWRITE_CACHE_CONTROL_INTERCEPTOR = chain -> {
-
-        //通过 CacheControl 控制缓存数据
-        CacheControl.Builder cacheBuilder = new CacheControl.Builder();
-        cacheBuilder.maxAge(0, TimeUnit.SECONDS);//这个是控制缓存的最大生命时间
-        cacheBuilder.maxStale(365, TimeUnit.DAYS);//这个是控制缓存的过时时间
-        CacheControl cacheControl = cacheBuilder.build();
-
-        //设置拦截器
-        Request request = chain.request();
-        if (!NetUtils.isNetworkAvailable(ShigureApp.getContext())) {
-            request = request.newBuilder()
-                    .cacheControl(cacheControl)
                     .build();
-        }
-
-        Response originalResponse = chain.proceed(request);
-        if (NetUtils.isNetworkAvailable(ShigureApp.getContext())) {
-            int maxAge = 0;//read from cache
-            return originalResponse.newBuilder()
-                    .removeHeader("Pragma")
-                    .header("Cache-Control", "public ,max-age=" + maxAge)
-                    .build();
-        } else {
-            int maxStale = 60 * 60 * 24 * 28;//tolerate 4-weeks stale
-            return originalResponse.newBuilder()
-                    .removeHeader("Prama")
-                    .header("Cache-Control", "poublic, only-if-cached, max-stale=" + maxStale)
-                    .build();
+            return chain.proceed(request);
         }
     };
+
+
+    //重写缓存控制拦截器
+    Interceptor rewriteCacheControlInterceptor = new Interceptor() {
+        @NotNull
+        @Override
+        public Response intercept(@NotNull Chain chain) throws IOException {
+
+
+            //设置拦截器
+            Request request = chain.request();
+            if (!NetUtils.isNetworkAvailable(ShigureApp.getContext())) {
+
+                //通过 CacheControl 控制缓存数据
+                CacheControl.Builder cacheBuilder = new CacheControl.Builder();
+                cacheBuilder.maxAge(0, TimeUnit.SECONDS);//这个是控制缓存的最大生命时间
+                cacheBuilder.maxStale(365, TimeUnit.DAYS);//这个是控制缓存的过时时间
+
+                CacheControl cacheControl = cacheBuilder.build();
+
+                request = request.newBuilder()
+                        .cacheControl(cacheControl)
+                        .build();
+
+            }
+
+            Response originalResponse = chain.proceed(request);
+            if (NetUtils.isNetworkAvailable(ShigureApp.getContext())) {//网络状态正常
+                int maxAge = 60 * 5;
+                return originalResponse.newBuilder()
+                        .removeHeader("Pragma")
+                        .header("Cache-Control", "public ,max-age=" + maxAge)
+                        .build();
+            } else {//网络状态异常
+                int maxStale = 60 * 60 * 24 * 28;//tolerate 4-weeks stale
+                return originalResponse.newBuilder()
+                        .removeHeader("Prama")
+                        .header("Cache-Control", "poublic, only-if-cached, max-stale=" + maxStale)
+                        .build();
+            }
+        }
+    };
+
 
     class LoggingInterceptor implements Interceptor {
+        @NotNull
         @Override
         public Response intercept(Chain chain) throws IOException {
             //这个chain里面包含了request和response，所以你要什么都可以从这里拿

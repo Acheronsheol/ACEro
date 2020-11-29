@@ -9,10 +9,10 @@ import retrofit2.http.Query;
 
 public interface NetUrlAPI {
 
-    @GET("http://test.cnsltx.com/mmm/buy99Gold?playerid=20015")
-    Observable<ResponseBody> getCall(@Query("name") String name, @Query("name") String psd);
-
     @GET("ero/nh/id/16")
     Observable<JsonElement> getBanner();
+
+    @GET("/ero/nh/search")
+    Observable<JsonElement> getNHentaiEngine(@Query("q") String keyWord, @Query("page") int page);
 
 }

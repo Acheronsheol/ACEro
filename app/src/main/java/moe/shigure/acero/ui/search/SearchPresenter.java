@@ -1,4 +1,4 @@
-package moe.shigure.acero.ui;
+package moe.shigure.acero.ui.search;
 
 import android.util.Log;
 
@@ -11,20 +11,22 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-
 import moe.shigure.acero.base.presenter.BasePresenter;
 import moe.shigure.acero.bean.ACEroBean;
+import moe.shigure.acero.bean.BookInfo;
+import moe.shigure.acero.bean.NHentaiSearchResult;
 import moe.shigure.acero.network.json.JsonPack;
 import moe.shigure.acero.network.retrofit.ApiRetrofit;
+import moe.shigure.acero.utils.ToastUtils;
 
 /**
  * Created by Shigure on 2020/11/4
  **/
 
-public class MainPresenter extends BasePresenter<MainContract.IMainView> implements MainContract.IMainPresenter {
+public class SearchPresenter extends BasePresenter<SearchContract.ISearchView> implements SearchContract.ISearchPresenter {
 
-    public void getData(){
-        ApiRetrofit.getInstance().getBanner()
+    public void getSearchResult(String keyWord, int page){
+        ApiRetrofit.getInstance().getNHentaiEngine(keyWord,page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JsonElement>() {
@@ -38,7 +40,17 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView> impleme
                         JsonObject jsonObject = (JsonObject)jsonElement;
                         ACEroBean bean = new ACEroBean();
                         bean.fillFromJson(new JsonPack(jsonObject));
-                        disposeData(bean);
+                        if(bean.isStatusBool()) {
+                            NHentaiSearchResult searchResult = new NHentaiSearchResult().fillFromJson(bean.getData());
+                            ArrayList<BookInfo> bookInfos = new ArrayList<>();
+                            for (JsonPack model : searchResult.getBookList()) {
+                                bookInfos.add(new BookInfo().fillFromJson(model));
+                            }
+                            getView().refreshSearchResult(bookInfos);
+                            ToastUtils.showShortToast("搜索完成ヾ(･ω･`｡)");
+                        } else {
+                            ToastUtils.showLongToast(String.format("搜索结果出现了问题\nStatusCode:%d\nMessage:%s\nDate:%s",bean.getStatusCode(),bean.getMessage(),bean.getDate()));
+                        }
                     }
                     @Override
                     public void onError(Throwable e) {
@@ -47,14 +59,6 @@ public class MainPresenter extends BasePresenter<MainContract.IMainView> impleme
                     public void onComplete() {
                     }
                 });
-    }
-
-    private void disposeData(ACEroBean bean){
-        ArrayList<String> al = new ArrayList<>();
-        for (JsonElement model : bean.getData().getJsonArray("images")){
-            al.add(model.getAsString());
-        }
-        getView().getPic(al);
     }
 
 }

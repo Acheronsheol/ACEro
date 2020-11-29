@@ -1,5 +1,8 @@
 package moe.shigure.acero.ui;
 
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,6 +25,7 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     private MultiTypeAdapter contentAdapter;
 
     private RecyclerView rv_content;
+    private TextView tv_page_number;
 
     @Override
     protected int initLayout() {
@@ -31,6 +35,7 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
     @Override
     protected void initViews() {
         rv_content = $(R.id.rv_content);
+        tv_page_number = $(R.id.tv_page_number);
     }
 
     @Override
@@ -40,9 +45,21 @@ public class MainActivity extends BaseActivity implements MainContract.IMainView
 
         contentItems = new Items();
         contentAdapter = new MultiTypeAdapter(contentItems);
-        rv_content.setLayoutManager(new LinearLayoutManager(getContext()));//这里用线性显示 类似于listview
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        rv_content.setLayoutManager(linearLayoutManager);//这里用线性显示 类似于listview
         contentAdapter.register(String.class, new MainContentBinder(this));
         rv_content.setAdapter(contentAdapter);
+
+        tv_page_number.setText(1+"/"+contentItems.size());
+
+        rv_content.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()+1;
+                tv_page_number.setText(firstVisibleItemPosition+"/"+contentItems.size());
+            }
+        });
+
     }
 
     public void getPic(ArrayList<String> picStr){

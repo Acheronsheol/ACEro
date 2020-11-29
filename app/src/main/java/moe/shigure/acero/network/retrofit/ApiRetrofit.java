@@ -49,9 +49,9 @@ public class ApiRetrofit extends BaseApiRetrofit {
         return RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
     }
 
-    //注册
-    public Observable<ResponseBody> getCall(String name, String psd) {
-        return netUrlAPI.getCall(name, psd);
+    //N-Hentai搜索引擎
+    public Observable<JsonElement> getNHentaiEngine(String keyWord, int page) {
+        return netUrlAPI.getNHentaiEngine(keyWord, page);
     }
 
     //注册

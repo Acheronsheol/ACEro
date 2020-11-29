@@ -1,7 +1,5 @@
 package moe.shigure.acero.bean;
 
-import com.google.gson.JsonObject;
-
 import moe.shigure.acero.network.json.JsonPack;
 
 /**
@@ -75,6 +73,18 @@ public class ACEroBean {
     }
     public JsonPack getData() {
         return data;
+    }
+
+    public ACEroBean fillFromJson(JsonPack jsonPack){
+        statusCode = jsonPack.getInt("status_code");
+        statusBool = jsonPack.getBoolean("status_bool");
+        version = jsonPack.getInt("version");
+        costTime = jsonPack.getString("cost_time");
+        date = jsonPack.getString("date");
+        timeStamp = jsonPack.getDouble("ts");
+        message = jsonPack.getString("message");
+        data = jsonPack.getJsonPack("data");
+        return this;
     }
 
 }
