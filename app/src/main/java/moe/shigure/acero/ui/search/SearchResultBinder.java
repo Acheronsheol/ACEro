@@ -38,8 +38,16 @@ public class SearchResultBinder extends ItemViewBinder<BookSimpleInfo, SearchRes
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull BookSimpleInfo bookSimpleInfo) {
+
+        String url;
+        if(bookSimpleInfo.getCover().startsWith("/")){
+            url = "https://ero.raxianch.moe"+bookSimpleInfo.getCover();
+        } else {
+            url = bookSimpleInfo.getCover();
+        }
+
         Glide.with(mActivity)
-                .load("https://ero.raxianch.moe"+ bookSimpleInfo.getCover())
+                .load(url)
                 .placeholder(R.drawable.placeholder_pic_light)
                 .fitCenter()
                 .into(holder.iv_book_thumb);

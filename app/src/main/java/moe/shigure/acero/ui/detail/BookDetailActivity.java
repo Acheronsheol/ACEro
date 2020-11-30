@@ -62,8 +62,16 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         detailUrl = getIntent().getStringExtra("url");
         bookThumb = getIntent().getStringExtra("thumb");
         mPresenter.getBookDetailInfo(detailUrl);
+
+        String url;
+        if(bookThumb.startsWith("/")){
+            url = "https://ero.raxianch.moe"+bookThumb;
+        } else {
+            url = bookThumb;
+        }
+
         Glide.with(this)
-                .load("https://ero.raxianch.moe"+ bookThumb)
+                .load(url)
                 .placeholder(R.drawable.placeholder_pic_light)
                 .fitCenter()
                 .into(iv_book_thumb);

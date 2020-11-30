@@ -1,6 +1,8 @@
 package moe.shigure.acero.ui.search;
 
+import android.content.Context;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -92,12 +94,17 @@ public class SearchActivity extends BaseActivity implements SearchContract.ISear
         contentItems.clear();
         contentItems.addAll(bookSimpleInfos);
         contentAdapter.notifyDataSetChanged();
+        rv_content.smoothScrollToPosition(0);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_search_go:
+
+                InputMethodManager imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+
                 if(engineType==0) {
                     keyWord = et_search_text.getText().toString();
                     if(!keyWord.isEmpty()) {

@@ -37,7 +37,7 @@ public class BaseApiRetrofit {
     public BaseApiRetrofit() {
 
         //cache
-        File httpCacheDir = new File(ShigureApp.getContext().getCacheDir(), "response");
+        File httpCacheDir = new File(ShigureApp.getContext().getExternalCacheDir(), "response");
         int cacheSize = 10 * 1024 * 1024;// 10 MiB
         Cache cache = new Cache(httpCacheDir, cacheSize);
 
@@ -85,20 +85,20 @@ public class BaseApiRetrofit {
 
             //设置拦截器
             Request request = chain.request();
-            if (!NetUtils.isNetworkAvailable(ShigureApp.getContext())) {
-
-                //通过 CacheControl 控制缓存数据
-                CacheControl.Builder cacheBuilder = new CacheControl.Builder();
-                cacheBuilder.maxAge(0, TimeUnit.SECONDS);//这个是控制缓存的最大生命时间
-                cacheBuilder.maxStale(365, TimeUnit.DAYS);//这个是控制缓存的过时时间
-
-                CacheControl cacheControl = cacheBuilder.build();
-
-                request = request.newBuilder()
-                        .cacheControl(cacheControl)
-                        .build();
-
-            }
+//            if (!NetUtils.isNetworkAvailable(ShigureApp.getContext())) {
+//
+//                //通过 CacheControl 控制缓存数据
+//                CacheControl.Builder cacheBuilder = new CacheControl.Builder();
+//                cacheBuilder.maxAge(0, TimeUnit.SECONDS);//这个是控制缓存的最大生命时间
+//                cacheBuilder.maxStale(365, TimeUnit.DAYS);//这个是控制缓存的过时时间
+//
+//                CacheControl cacheControl = cacheBuilder.build();
+//
+//                request = request.newBuilder()
+//                        .cacheControl(cacheControl)
+//                        .build();
+//
+//            }
 
             Response originalResponse = chain.proceed(request);
             if (NetUtils.isNetworkAvailable(ShigureApp.getContext())) {//网络状态正常

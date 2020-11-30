@@ -28,7 +28,7 @@ public class BookReadActivity extends BaseActivity implements BookReadContract.I
 
     @Override
     protected int initLayout() {
-        return R.layout.activity_main;
+        return R.layout.activity_book_read;
     }
 
     @Override
@@ -49,13 +49,14 @@ public class BookReadActivity extends BaseActivity implements BookReadContract.I
         contentAdapter.register(String.class, new BookReadBinder(this));
         rv_content.setAdapter(contentAdapter);
 
-        tv_page_number.setText(1+"/"+contentItems.size());
-
         rv_content.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition()+1;
                 tv_page_number.setText(firstVisibleItemPosition+"/"+contentItems.size());
+                if (!recyclerView.canScrollVertically(1)){
+                    tv_page_number.setText(contentItems.size()+"/"+contentItems.size());
+                }
             }
         });
 

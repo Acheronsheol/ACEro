@@ -33,9 +33,15 @@ public class BookReadBinder extends ItemViewBinder<String, BookReadBinder.ViewHo
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull String string) {
+    protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull String path) {
+        String url;
+        if(path.startsWith("/")){
+            url = "https://ero.raxianch.moe"+path;
+        } else {
+            url = path;
+        }
         Glide.with(activity)
-                .load("https://ero.raxianch.moe"+string)
+                .load(url)
                 .placeholder(R.drawable.placeholder_pic_light)
                 .fitCenter()
                 .into(holder.iv_pic);
