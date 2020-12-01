@@ -64,6 +64,9 @@ public class BookSimpleInfo {
         bookName = jsonPack.getString("bname");
         cover = jsonPack.getString("cover");
         url = jsonPack.getString("url");
+        if(cover.startsWith("/")){
+            cover = "https://ero.raxianch.moe" + cover;
+        }
         return this;
     }
 

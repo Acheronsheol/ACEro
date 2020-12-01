@@ -52,7 +52,11 @@ public class BookReadPresenter extends BasePresenter<BookReadContract.IMainView>
     private void disposeData(ACEroBean bean){
         ArrayList<String> al = new ArrayList<>();
         for (JsonElement model : bean.getData().getJsonArray("images")){
-            al.add(model.getAsString());
+            String url = model.getAsString();
+            if(url.startsWith("/")){
+                url = "https://ero.raxianch.moe" + url;
+            }
+            al.add(url);
         }
         getView().getPic(al);
     }

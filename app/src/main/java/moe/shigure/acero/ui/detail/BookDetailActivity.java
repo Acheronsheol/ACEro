@@ -73,7 +73,6 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         Glide.with(this)
                 .load(url)
                 .placeholder(R.drawable.placeholder_pic_light)
-                .fitCenter()
                 .into(iv_book_thumb);
         ToastUtils.showShortToast("正在加载...");
     }

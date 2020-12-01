@@ -19,10 +19,10 @@ import moe.shigure.acero.R;
 
 public class BookReadBinder extends ItemViewBinder<String, BookReadBinder.ViewHolder> {
 
-    Activity activity;
+    Activity mActivity;
 
     public BookReadBinder(Activity activity){
-        this.activity = activity;
+        this.mActivity = activity;
     }
 
     @NonNull
@@ -34,14 +34,8 @@ public class BookReadBinder extends ItemViewBinder<String, BookReadBinder.ViewHo
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, @NonNull String path) {
-        String url;
-        if(path.startsWith("/")){
-            url = "https://ero.raxianch.moe"+path;
-        } else {
-            url = path;
-        }
-        Glide.with(activity)
-                .load(url)
+        Glide.with(mActivity)
+                .load(path)
                 .placeholder(R.drawable.placeholder_pic_light)
                 .fitCenter()
                 .into(holder.iv_pic);

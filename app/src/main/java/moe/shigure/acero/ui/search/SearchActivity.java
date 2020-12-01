@@ -8,6 +8,11 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.ListPreloader;
+import com.bumptech.glide.integration.recyclerview.RecyclerViewPreloader;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.util.FixedPreloadSizeProvider;
 import com.gyf.immersionbar.ImmersionBar;
 
 import java.util.ArrayList;
@@ -21,6 +26,7 @@ import moe.shigure.acero.base.inject.InjectPresenter;
 import moe.shigure.acero.base.view.BaseActivity;
 import moe.shigure.acero.bean.BookSimpleInfo;
 import moe.shigure.acero.utils.ToastUtils;
+import moe.shigure.acero.utils.glide.GlideImageModelProvider;
 
 /**
  * Created by Shigure on 2020/11/4
@@ -39,6 +45,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.ISear
 
     private Items contentItems;
     private MultiTypeAdapter contentAdapter;
+    private ArrayList<String> thumbImageUrlList;
 
     private int engineType = 0;
     private String keyWord;
@@ -82,15 +89,29 @@ public class SearchActivity extends BaseActivity implements SearchContract.ISear
 
         contentItems = new Items();
         contentAdapter = new MultiTypeAdapter(contentItems);
+        thumbImageUrlList = new ArrayList<>();
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         rv_content.setLayoutManager(linearLayoutManager);
         contentAdapter.register(BookSimpleInfo.class, new SearchResultBinder(this));
         rv_content.setAdapter(contentAdapter);
 
+        //然后把RecyclerViewPreloader添加到recyclerview里就可以了
+        ListPreloader.PreloadSizeProvider sizeProvider = new FixedPreloadSizeProvider(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL);
+        ListPreloader.PreloadModelProvider modelProvider = new GlideImageModelProvider(this,thumbImageUrlList);
+        RecyclerViewPreloader<String> preLoader = new RecyclerViewPreloader<>(
+                Glide.with(this), modelProvider, sizeProvider, 3);//这里的3就是预加载的数量
+        rv_content.addOnScrollListener(preLoader);
+
     }
 
     @Override
     public void refreshSearchResult(ArrayList<BookSimpleInfo> bookSimpleInfos){
+        thumbImageUrlList.clear();
+        for (BookSimpleInfo model : bookSimpleInfos){
+            thumbImageUrlList.add(model.getCover());
+        }
+
         contentItems.clear();
         contentItems.addAll(bookSimpleInfos);
         contentAdapter.notifyDataSetChanged();

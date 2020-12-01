@@ -142,6 +142,9 @@ public class BookDetailInfo {
                 };
             }
         };
+        if(cover.startsWith("/")){
+            cover = "https://ero.raxianch.moe" + cover;
+        }
         return this;
     }
 

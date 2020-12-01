@@ -67,7 +67,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".ui.search.SearchActivity">
+        <activity android:name=".ui.search.SearchActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -75,12 +76,12 @@
         </activity>
 
         <activity
-            android:name=".ui.read.BookReadActivity"
+            android:name=".ui.detail.BookDetailActivity"
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".ui.detail.BookDetailActivity"
-            android:screenOrientation="portrait"/>
+            android:name=".ui.read.BookReadActivity"
+            android:configChanges="orientation|keyboardHidden" />
 
     </application>
 
