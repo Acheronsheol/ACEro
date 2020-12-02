@@ -19,4 +19,7 @@ public interface NetUrlAPI {
     @GET("/ero/nh/search")
     Observable<JsonElement> getNHentaiEngine(@Query("q") String keyWord, @Query("page") int page);
 
+    @GET("/ero/nh/random")
+    Observable<JsonElement> getRandomBookInfo();
+
 }

@@ -13,6 +13,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import moe.shigure.acero.base.presenter.BasePresenter;
 import moe.shigure.acero.bean.ACEroBean;
+import moe.shigure.acero.bean.BookDetailInfo;
 import moe.shigure.acero.bean.BookSimpleInfo;
 import moe.shigure.acero.bean.NHentaiSearchResult;
 import moe.shigure.acero.network.json.JsonPack;
@@ -46,10 +47,14 @@ public class SearchPresenter extends BasePresenter<SearchContract.ISearchView> i
                             for (JsonPack model : searchResult.getBookList()) {
                                 bookSimpleInfos.add(new BookSimpleInfo().fillFromJson(model));
                             }
-                            getView().refreshSearchResult(bookSimpleInfos);
-                            ToastUtils.showShortToast("搜索完成ヾ(･ω･`｡)");
+                            getView().refreshSearchResult(searchResult, bookSimpleInfos);
+                            if(searchResult.getPage()<=1) {
+                                ToastUtils.showShortToast("搜索完成ヾ(･ω･`｡)");
+                            } else {
+                                ToastUtils.showShortToast("加载成功ヾ(･ω･`｡)");
+                            }
                         } else {
-                            ToastUtils.showLongToast(String.format("搜索结果出现了问题\nStatusCode:%d\nMessage:%s\nDate:%s",bean.getStatusCode(),bean.getMessage(),bean.getDate()));
+                            ToastUtils.showLongToast(String.format("结果出现了问题\nStatusCode:%d\nMessage:%s\nDate:%s",bean.getStatusCode(),bean.getMessage(),bean.getDate()));
                         }
                     }
                     @Override

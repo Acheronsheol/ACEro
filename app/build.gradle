@@ -79,6 +79,11 @@ dependencies {
     implementation 'com.github.bumptech.glide:recyclerview-integration:4.11.0'//glide recyclerView支持
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'//沉浸式状态栏
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'//沉浸式状态栏 fragment支持
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'//Recyclerview的刷新控件
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.1'//刷新控件-经典刷新加载
+    implementation 'com.scwang.smart:refresh-footer-classics:2.0.1'//刷新控件-经典刷新加载
+    implementation 'com.scwang.smart:refresh-header-material:2.0.1'//刷新控件-谷歌刷新加载
+    implementation 'com.scwang.smart:refresh-header-falsify:2.0.1'//刷新控件-虚拟回弹占位
 
 
 }

@@ -63,9 +63,9 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/sw_90dp"
             android:gravity="center"
-            android:text="开始阅读"
-            android:textSize="@dimen/sw_80sp"
-            android:textColor="@color/blue"/>
+            android:text="少女祈祷中..."
+            android:textSize="@dimen/sw_60sp"
+            android:textColor="@color/pink" />
 
     </LinearLayout>
 

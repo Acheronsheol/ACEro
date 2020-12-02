@@ -26,6 +26,15 @@
             android:textColor="@color/black" />
 
         <TextView
+            android:id="@+id/tv_search_random"
+            android:layout_width="@dimen/sw_180dp"
+            android:layout_height="@dimen/sw_120dp"
+            android:gravity="center"
+            android:text="抽奖"
+            android:textSize="@dimen/sw_45sp"
+            android:textColor="@color/pink"/>
+
+        <TextView
             android:id="@+id/tv_search_go"
             android:layout_width="@dimen/sw_180dp"
             android:layout_height="@dimen/sw_120dp"
@@ -60,9 +69,25 @@
 
     </RadioGroup>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_content"
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_content_load"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <com.scwang.smart.refresh.header.FalsifyHeader
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"/>
+
+        <com.scwang.smart.refresh.footer.ClassicsFooter
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

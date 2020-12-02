@@ -53,6 +53,10 @@ public class ApiRetrofit extends BaseApiRetrofit {
         return netUrlAPI.getUrlInfo(url);
     }
 
+    public Observable<JsonElement> getRandomBookInfo() {
+        return netUrlAPI.getRandomBookInfo();
+    }
+
     //注册
     public Observable<JsonElement> getBanner() {
         return netUrlAPI.getBanner();

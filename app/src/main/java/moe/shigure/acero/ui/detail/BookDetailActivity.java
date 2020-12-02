@@ -34,6 +34,7 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
     private TextView tv_book_tags;
     private TextView tv_book_read;
 
+    private boolean isRandom;
     private String detailUrl;
     private String bookThumb;
     private String bookContentUrl;
@@ -59,27 +60,40 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
 
         tv_book_read.setOnClickListener(this);
 
+        isRandom = getIntent().getBooleanExtra("random",false);
         detailUrl = getIntent().getStringExtra("url");
         bookThumb = getIntent().getStringExtra("thumb");
         mPresenter.getBookDetailInfo(detailUrl);
 
-        String url;
-        if(bookThumb.startsWith("/")){
-            url = "https://ero.raxianch.moe"+bookThumb;
-        } else {
-            url = bookThumb;
+        if(isRandom){
+            mPresenter.getRandomBookDetailInfo();
+            ToastUtils.showShortToast("开始抽奖啦（๑ `▽´๑)");
+        } else if(detailUrl!=null && !detailUrl.isEmpty()) {
+            if(bookThumb!=null && !bookThumb.isEmpty()){
+                String url;
+                if(bookThumb.startsWith("/")){
+                    url = "https://ero.raxianch.moe"+bookThumb;
+                } else {
+                    url = bookThumb;
+                }
+                Glide.with(this)
+                        .load(url)
+                        .placeholder(R.drawable.placeholder_pic_light)
+                        .into(iv_book_thumb);
+            }
+            ToastUtils.showShortToast("正在加载...");
         }
-
-        Glide.with(this)
-                .load(url)
-                .placeholder(R.drawable.placeholder_pic_light)
-                .into(iv_book_thumb);
-        ToastUtils.showShortToast("正在加载...");
     }
 
     @Override
     public void refreshBookDetailInfo(BookDetailInfo bookDetailInfo) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if(detailUrl==null || detailUrl.isEmpty()){
+            Glide.with(this)
+                    .load(bookDetailInfo.getCover())
+                    .placeholder(R.drawable.placeholder_pic_light)
+                    .into(iv_book_thumb);
+        }
         bookContentUrl = bookDetailInfo.getGalleries();
         mPresenter.preloadBookContent(bookContentUrl);
         tv_book_name.setText(bookDetailInfo.getTitle().getFullName());
@@ -90,6 +104,7 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
             tags.append(model.getName()).append(" ");
         }
         tv_book_tags.setText("标签："+tags);
+        tv_book_read.setText("开始阅读");
     }
 
     @Override

@@ -45,7 +45,39 @@ public class BookDetailPresenter extends BasePresenter<BookDetailContract.IBookD
                             getView().refreshBookDetailInfo(new BookDetailInfo().fillFromJson(bean.getData()));
                             ToastUtils.showShortToast("加载完成ヾ(･ω･`｡)");
                         } else {
-                            ToastUtils.showLongToast(String.format("加载结果出现了问题\nStatusCode:%d\nMessage:%s\nDate:%s",bean.getStatusCode(),bean.getMessage(),bean.getDate()));
+                            ToastUtils.showLongToast(String.format("结果出现了问题\nStatusCode:%d\nMessage:%s\nDate:%s",bean.getStatusCode(),bean.getMessage(),bean.getDate()));
+                        }
+                    }
+                    @Override
+                    public void onError(Throwable e) {
+                        e.fillInStackTrace();
+                    }
+                    @Override
+                    public void onComplete() {
+                    }
+                });
+    }
+
+    public void getRandomBookDetailInfo(){
+        ApiRetrofit.getInstance().getRandomBookInfo()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JsonElement>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+                    @Override
+                    public void onNext(JsonElement jsonElement) {
+                        Log.d("BookDetailPresenter",jsonElement.toString());
+                        JsonObject jsonObject = (JsonObject)jsonElement;
+                        ACEroBean bean = new ACEroBean();
+                        bean.fillFromJson(new JsonPack(jsonObject));
+                        if(bean.isStatusBool()) {
+                            getView().refreshBookDetailInfo(new BookDetailInfo().fillFromJson(bean.getData()));
+                            ToastUtils.showShortToast("抽奖完成ヾ(･ω･`｡)");
+                        } else {
+                            ToastUtils.showLongToast(String.format("结果出现了问题\nStatusCode:%d\nMessage:%s\nDate:%s",bean.getStatusCode(),bean.getMessage(),bean.getDate()));
                         }
                     }
                     @Override

@@ -23,6 +23,8 @@ public class BookDetailContract {
 
         void getBookDetailInfo(String url);
 
+        void getRandomBookDetailInfo();
+
     }
 
 }
