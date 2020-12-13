@@ -16,4 +16,6 @@
     <color name="black_alpha0d">#0d000000</color>
     <color name="black_alpha4d">#4d000000</color>
     <color name="black_alpha66">#66000000</color>
+    <color name="col_303030">#303030</color>
+    <color name="col_c0c0c0">#c0c0c0</color>
 </resources>

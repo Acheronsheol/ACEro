@@ -65,6 +65,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'//json解析库
     implementation 'com.blankj:utilcodex:1.29.0'//android工具库
     implementation 'me.drakeet.multitype:multitype:3.5.0'//RecyclerView万能适配器
+    implementation 'com.xlw.zoom:zoomlayout:1.0.0'//支持控件缩放的Layout
 
     implementation 'org.greenrobot:eventbus:3.2.0'//事件总线
     implementation 'io.reactivex.rxjava2:rxjava:2.2.19'//异步链式java框架

@@ -78,7 +78,7 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
                 }
                 Glide.with(this)
                         .load(url)
-                        .placeholder(R.drawable.placeholder_pic_light)
+                        .placeholder(R.drawable.placeholder_cover_pic)
                         .into(iv_book_thumb);
             }
             ToastUtils.showShortToast("正在加载...");
@@ -91,7 +91,7 @@ public class BookDetailActivity extends BaseActivity implements BookDetailContra
         if(detailUrl==null || detailUrl.isEmpty()){
             Glide.with(this)
                     .load(bookDetailInfo.getCover())
-                    .placeholder(R.drawable.placeholder_pic_light)
+                    .placeholder(R.drawable.placeholder_cover_pic)
                     .into(iv_book_thumb);
         }
         bookContentUrl = bookDetailInfo.getGalleries();

@@ -41,7 +41,7 @@ public class SearchResultBinder extends ItemViewBinder<BookSimpleInfo, SearchRes
 
         Glide.with(mActivity)
                 .load(bookSimpleInfo.getCover())
-                .placeholder(R.drawable.placeholder_pic_light)
+                .placeholder(R.drawable.placeholder_cover_pic)
                 .into(holder.iv_book_thumb);
         holder.tv_book_name.setText(bookSimpleInfo.getBookName());
 
