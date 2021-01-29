@@ -44,14 +44,14 @@ public class BookDetailInfo {
 
     private long id;
     private String hash;
-    private String origin;
-    private BookTitle title;
-    private int pages;
-    private long favorites;
-    private long uploadDate;
-    private String cover;
-    private String galleries;
-    private ArrayList<BookTags> tags;
+    private String origin;//来源 NH或EXH
+    private BookTitle title;//书名信息
+    private int pages;//页数
+    private long favorites;//收藏
+    private long uploadDate;//上传时间
+    private String cover;//封面图
+    private String galleries;//漫画url
+    private ArrayList<BookTags> tags;//标签
 
     public BookDetailInfo setId(long id) {
         this.id = id;

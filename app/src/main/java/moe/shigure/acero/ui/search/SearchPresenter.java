@@ -26,6 +26,8 @@ import moe.shigure.acero.utils.ToastUtils;
 
 public class SearchPresenter extends BasePresenter<SearchContract.ISearchView> implements SearchContract.ISearchPresenter {
 
+    private Disposable disposable;
+
     public void getSearchResult(String keyWord, int page){
         ApiRetrofit.getInstance().getNHentaiEngine(keyWord,page)
                 .subscribeOn(Schedulers.io())
@@ -33,7 +35,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.ISearchView> i
                 .subscribe(new Observer<JsonElement>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposable = d;
                     }
                     @Override
                     public void onNext(JsonElement jsonElement) {
@@ -65,6 +67,15 @@ public class SearchPresenter extends BasePresenter<SearchContract.ISearchView> i
                     public void onComplete() {
                     }
                 });
+    }
+
+    @Override
+    public void detach() {
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+            ToastUtils.showShortToast("取消了一个请求");
+        }
+        super.detach();
     }
 
 }

@@ -18,7 +18,7 @@ public class BookTitle {
     private String translated;
     private String abbre;
 
-    public BookTitle setFull_name(String fullName) {
+    public BookTitle setFullName(String fullName) {
         this.fullName = fullName;
         return this;
     }

@@ -5,8 +5,6 @@ import android.util.Log;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.util.ArrayList;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -14,8 +12,6 @@ import io.reactivex.schedulers.Schedulers;
 import moe.shigure.acero.base.presenter.BasePresenter;
 import moe.shigure.acero.bean.ACEroBean;
 import moe.shigure.acero.bean.BookDetailInfo;
-import moe.shigure.acero.bean.BookSimpleInfo;
-import moe.shigure.acero.bean.NHentaiSearchResult;
 import moe.shigure.acero.network.json.JsonPack;
 import moe.shigure.acero.network.retrofit.ApiRetrofit;
 import moe.shigure.acero.utils.ToastUtils;
@@ -26,6 +22,8 @@ import moe.shigure.acero.utils.ToastUtils;
 
 public class BookDetailPresenter extends BasePresenter<BookDetailContract.IBookDetailView> implements BookDetailContract.IBookDetailPresenter {
 
+    private Disposable disposable;
+
     public void getBookDetailInfo(String url){
         ApiRetrofit.getInstance().getUrlInfo(url)
                 .subscribeOn(Schedulers.io())
@@ -33,7 +31,7 @@ public class BookDetailPresenter extends BasePresenter<BookDetailContract.IBookD
                 .subscribe(new Observer<JsonElement>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposable = d;
                     }
                     @Override
                     public void onNext(JsonElement jsonElement) {
@@ -65,7 +63,7 @@ public class BookDetailPresenter extends BasePresenter<BookDetailContract.IBookD
                 .subscribe(new Observer<JsonElement>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposable = d;
                     }
                     @Override
                     public void onNext(JsonElement jsonElement) {
@@ -97,7 +95,7 @@ public class BookDetailPresenter extends BasePresenter<BookDetailContract.IBookD
                 .subscribe(new Observer<JsonElement>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposable = d;
                     }
                     @Override
                     public void onNext(JsonElement jsonElement) {
@@ -111,6 +109,15 @@ public class BookDetailPresenter extends BasePresenter<BookDetailContract.IBookD
                     public void onComplete() {
                     }
                 });
+    }
+
+    @Override
+    public void detach() {
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+            ToastUtils.showShortToast("取消了一个请求");
+        }
+        super.detach();
     }
 
 }

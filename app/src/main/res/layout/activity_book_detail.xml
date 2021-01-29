@@ -5,68 +5,119 @@
     android:orientation="vertical"
     android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/iv_book_thumb"
+    <RelativeLayout
+        android:id="@+id/rl_title"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sw_600dp"
-        android:scaleType="centerCrop"/>
+        android:layout_height="@dimen/sw_130dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/sw_115dp"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/sw_27dp"
+            android:paddingBottom="@dimen/sw_27dp"
+            android:paddingLeft="@dimen/sw_20dp"
+            android:paddingRight="@dimen/sw_20dp"
+            android:src="@drawable/back_dark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="本子详情"
+            android:textSize="@dimen/sw_58sp"
+            android:textColor="@color/col_242424"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/sw_1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/black_alpha1a"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/sw_15dp"
-        android:layout_marginLeft="@dimen/sw_45dp"
-        android:layout_marginRight="@dimen/sw_45dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/sw_45dp"
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tv_book_name"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/iv_book_thumb"
+            android:layout_width="@dimen/sw_300dp"
+            android:layout_height="@dimen/sw_450dp"
+            android:layout_marginLeft="@dimen/sw_45dp"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sw_45dp"
-            android:gravity="center_horizontal"
-            android:text=""
-            android:textSize="@dimen/sw_45sp"
-            android:textColor="@color/black"/>
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/sw_45dp"
+            android:layout_marginRight="@dimen/sw_45dp">
 
-        <TextView
-            android:id="@+id/tv_book_favorites_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sw_30dp"
-            android:text="收藏："
-            android:textSize="@dimen/sw_40sp"
-            android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/tv_book_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/sw_15dp"
+                android:layout_marginBottom="@dimen/sw_20dp"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="这里是书名"
+                android:textSize="@dimen/sw_45sp"
+                android:textColor="@color/black"/>
 
-        <TextView
-            android:id="@+id/tv_book_update_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sw_30dp"
-            android:text="上传时间："
-            android:textSize="@dimen/sw_40sp"
-            android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/tv_book_update_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sw_15dp"
+                android:text="2021-01-29 23:52"
+                android:textSize="@dimen/sw_36sp"
+                android:textColor="@color/col_666666"/>
 
-        <TextView
-            android:id="@+id/tv_book_tags"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/sw_30dp"
-            android:text="标签："
-            android:textSize="@dimen/sw_40sp"
-            android:textColor="@color/black"/>
+            <TextView
+                android:id="@+id/tv_book_favorites_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sw_15dp"
+                android:text="0个收藏"
+                android:textSize="@dimen/sw_36sp"
+                android:textColor="@color/col_666666"/>
 
-        <TextView
-            android:id="@+id/tv_book_read"
-            android:layout_width="@dimen/sw_450dp"
-            android:layout_height="@dimen/sw_150dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/sw_90dp"
-            android:gravity="center"
-            android:text="少女祈祷中..."
-            android:textSize="@dimen/sw_60sp"
-            android:textColor="@color/pink" />
+            <TextView
+                android:id="@+id/tv_book_page_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/sw_15dp"
+                android:text="共0页"
+                android:textSize="@dimen/sw_36sp"
+                android:textColor="@color/col_666666"/>
+
+            <TextView
+                android:id="@+id/tv_book_tags"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:text="标签："
+                android:textSize="@dimen/sw_36sp"
+                android:textColor="@color/col_666666"/>
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_book_read"
+        android:layout_width="@dimen/sw_450dp"
+        android:layout_height="@dimen/sw_150dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/sw_90dp"
+        android:gravity="center"
+        android:text="少女祈祷中..."
+        android:textSize="@dimen/sw_60sp"
+        android:textColor="@color/pink" />
 
 </LinearLayout>

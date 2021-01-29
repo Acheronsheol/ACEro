@@ -57,7 +57,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.ISear
     private SmartRefreshLayout srl_content_load;
     private RecyclerView rv_content;
 
-    private Items contentItems;
+    private ArrayList<BookSimpleInfo> contentItems;
     private MultiTypeAdapter contentAdapter;
     private ArrayList<String> thumbImageUrlList;
 
@@ -105,7 +105,7 @@ public class SearchActivity extends BaseActivity implements SearchContract.ISear
             }
         });
 
-        contentItems = new Items();
+        contentItems = new ArrayList<>();
         contentAdapter = new MultiTypeAdapter(contentItems);
         thumbImageUrlList = new ArrayList<>();
 
@@ -124,7 +124,11 @@ public class SearchActivity extends BaseActivity implements SearchContract.ISear
         srl_content_load.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                mPresenter.getSearchResult(keyWord, searchPage++);
+                if(contentItems.size()%25 == 0) {
+                    mPresenter.getSearchResult(keyWord, searchPage++);
+                } else {
+                    srl_content_load.finishLoadMore();
+                }
             }
         });
 

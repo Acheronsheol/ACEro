@@ -16,12 +16,15 @@ import moe.shigure.acero.base.presenter.BasePresenter;
 import moe.shigure.acero.bean.ACEroBean;
 import moe.shigure.acero.network.json.JsonPack;
 import moe.shigure.acero.network.retrofit.ApiRetrofit;
+import moe.shigure.acero.utils.ToastUtils;
 
 /**
  * Created by Shigure on 2020/11/4
  **/
 
 public class BookReadPresenter extends BasePresenter<BookReadContract.IMainView> implements BookReadContract.IMainPresenter {
+
+    private Disposable disposable;
 
     public void getBookContent(String url){
         ApiRetrofit.getInstance().getUrlInfo(url)
@@ -30,7 +33,7 @@ public class BookReadPresenter extends BasePresenter<BookReadContract.IMainView>
                 .subscribe(new Observer<JsonElement>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposable = d;
                     }
                     @Override
                     public void onNext(JsonElement jsonElement) {
@@ -59,6 +62,15 @@ public class BookReadPresenter extends BasePresenter<BookReadContract.IMainView>
             al.add(url);
         }
         getView().getPic(al);
+    }
+
+    @Override
+    public void detach() {
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+            ToastUtils.showShortToast("取消了一个请求");
+        }
+        super.detach();
     }
 
 }
