@@ -49,17 +49,14 @@ public class ApiRetrofit extends BaseApiRetrofit {
         return RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"),route);
     }
 
+    //获取详情信息
     public Observable<JsonElement> getUrlInfo(String url) {
         return netUrlAPI.getUrlInfo(url);
     }
 
+    //随机漫画详情信息
     public Observable<JsonElement> getRandomBookInfo() {
         return netUrlAPI.getRandomBookInfo();
-    }
-
-    //注册
-    public Observable<JsonElement> getBanner() {
-        return netUrlAPI.getBanner();
     }
 
     //N-Hentai搜索引擎

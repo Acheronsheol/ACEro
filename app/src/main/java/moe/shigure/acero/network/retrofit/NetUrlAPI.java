@@ -13,9 +13,6 @@ public interface NetUrlAPI {
     @GET("{url}")
     Observable<JsonElement> getUrlInfo(@Path(value="url",encoded = true) String url);
 
-    @GET("/ero/nh/id/16")
-    Observable<JsonElement> getBanner();
-
     @GET("/ero/nh/search")
     Observable<JsonElement> getNHentaiEngine(@Query("q") String keyWord, @Query("page") int page);
 
