@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
         applicationId "moe.shigure.acero"
         minSdkVersion 21
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
 
@@ -58,7 +58,7 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-    buildToolsVersion '30.0.3'
+    buildToolsVersion '31.0.0'
 
 }
 
@@ -74,12 +74,12 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
     implementation 'com.google.code.gson:gson:2.8.9'//json解析库
-    implementation 'com.blankj:utilcodex:1.29.0'//android工具库
+    implementation 'com.blankj:utilcodex:1.31.0'//android工具库
     implementation 'me.drakeet.multitype:multitype:3.5.0'//RecyclerView万能适配器
     implementation 'com.xlw.zoom:zoomlayout:1.0.0'//支持控件缩放的Layout
 
-    implementation 'org.greenrobot:eventbus:3.2.0'//事件总线
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'//异步链式java框架
+    implementation 'org.greenrobot:eventbus:3.3.1'//事件总线
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.21'//异步链式java框架
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'//异步链式android框架
     implementation 'com.squareup.okhttp3:okhttp:4.8.1'//http请求
     implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'//http请求跟踪
@@ -88,7 +88,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'//retrofit rxJava支持库
     implementation 'com.github.bumptech.glide:glide:4.12.0'//图片加载缓存显示库
     implementation 'com.github.bumptech.glide:gifdecoder:4.12.0'//glide gif解码器
-    implementation 'com.github.bumptech.glide:recyclerview-integration:4.11.0'//glide recyclerView支持
+    implementation 'com.github.bumptech.glide:recyclerview-integration:4.12.0'//glide recyclerView支持
     implementation 'com.gyf.immersionbar:immersionbar:3.0.0'//沉浸式状态栏
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'//沉浸式状态栏 fragment支持
     implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'//Recyclerview的刷新控件

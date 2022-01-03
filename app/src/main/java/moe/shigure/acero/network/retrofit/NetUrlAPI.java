@@ -10,6 +10,8 @@ import retrofit2.http.Query;
 
 public interface NetUrlAPI {
 
+    String BASE_URL = "https://ero.raxianch.moe/";
+
     @GET("{url}")
     Observable<JsonElement> getUrlInfo(@Path(value="url",encoded = true) String url);
 

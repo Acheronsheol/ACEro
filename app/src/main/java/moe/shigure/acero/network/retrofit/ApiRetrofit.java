@@ -19,13 +19,10 @@ public class ApiRetrofit extends BaseApiRetrofit {
 
     private ApiRetrofit() {
         super();
-        Gson gson = new GsonBuilder()
-                .setLenient()
-                .create();
 
         //在构造方法中完成对Retrofit接口的初始化
         netUrlAPI = new Retrofit.Builder()
-                .baseUrl("https://ero.raxianch.moe/")
+                .baseUrl(NetUrlAPI.BASE_URL)
                 .client(getClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
