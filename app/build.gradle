@@ -14,10 +14,20 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-//        ndk {
-//            //设置支持的SO库架构 可指定的值为 'armeabi-v7a', 'arm64-v8a', 'armeabi', 'x86', 'x86_64'，
-//            abiFilters 'armeabi-v7a'
-//        }
+        signingConfigs {
+            release {
+                keyAlias 'shigure'
+                keyPassword 'acheronsheol'
+                storeFile file('shigure.keystore')
+                storePassword 'acheronsheol'
+            }
+            debug {
+                keyAlias 'shigure'
+                keyPassword 'acheronsheol'
+                storeFile file('shigure.keystore')
+                storePassword 'acheronsheol'
+            }
+        }
 
     }
 
@@ -48,7 +58,6 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-    ndkVersion '22.1.7171670'
     buildToolsVersion '30.0.3'
 
 }
@@ -61,10 +70,10 @@ dependencies {
 
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 
-    implementation 'com.google.code.gson:gson:2.8.6'//json解析库
+    implementation 'com.google.code.gson:gson:2.8.9'//json解析库
     implementation 'com.blankj:utilcodex:1.29.0'//android工具库
     implementation 'me.drakeet.multitype:multitype:3.5.0'//RecyclerView万能适配器
     implementation 'com.xlw.zoom:zoomlayout:1.0.0'//支持控件缩放的Layout

@@ -27,7 +27,7 @@ public class ApiRetrofit extends BaseApiRetrofit {
         netUrlAPI = new Retrofit.Builder()
                 .baseUrl("https://ero.raxianch.moe/")
                 .client(getClient())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
                 .create(NetUrlAPI.class);

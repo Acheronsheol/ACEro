@@ -46,12 +46,16 @@ public class BaseApiRetrofit {
 
         //OkHttpClient
         mClient = new OkHttpClient.Builder()
-                .addInterceptor(rewriteHeaderControlInterceptor)
-                .addInterceptor(rewriteCacheControlInterceptor)
-                .addInterceptor(new LoggingInterceptor())
+                .retryOnConnectionFailure(true)
+                .connectTimeout(2500, TimeUnit.MILLISECONDS)
+                .readTimeout(20000, TimeUnit.MILLISECONDS)
+                .writeTimeout(30000, TimeUnit.MILLISECONDS)
+//                .addInterceptor(rewriteHeaderControlInterceptor)
+//                .addInterceptor(rewriteCacheControlInterceptor)
+//                .addInterceptor(new LoggingInterceptor())
 //                .addInterceptor(loggingInterceptor)//设置 Debug Log 模式
                 .cache(cache)
-                .cookieJar(cookieJar)
+//                .cookieJar(cookieJar)
                 .build();
     }
 
