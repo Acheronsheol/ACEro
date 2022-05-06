@@ -61,7 +61,7 @@ public class SearchPresenter extends BasePresenter<SearchContract.ISearchView> i
                     }
                     @Override
                     public void onError(Throwable e) {
-                        e.fillInStackTrace();
+                        e.printStackTrace();
                     }
                     @Override
                     public void onComplete() {
